@@ -2,7 +2,6 @@ package com.fatec.student.services;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +15,24 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
-    
-    public List<Student> getStudents(){
+
+    public List<Student> getStudents() {
         return studentRepository.findAll();
     }
 
-    public Student getStudentById(int id){
+    public Student getStudentById(int id) {
 
         return studentRepository.findById(id).orElseThrow(
-            () -> new EntityNotFoundException("Aluno não cadastrado")
-        );
+                () -> new EntityNotFoundException("Aluno não cadastrado"));
 
     }
 
+    public void deleteStudentById(int id) {
+        if (this.studentRepository.existsById(id)) {
+            this.studentRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Aluno não cadastrado");
+        }
+    }
 
 }
