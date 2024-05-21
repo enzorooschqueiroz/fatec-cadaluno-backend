@@ -35,4 +35,8 @@ public class StudentService {
         }
     }
 
+    public Student save(Student student){
+        return this.studentRepository.save(student);
+    }
+
 }
